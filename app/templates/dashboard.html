@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | NeuroScan AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">NeuroScan <span>AI</span></div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<main class="dashboard-container">
+
+    <section class="dashboard-welcome">
+        <div>
+            <p class="dashboard-label">USER DASHBOARD</p>
+            <h1>Welcome, {{ user_name }}!</h1>
+            <p>Analyze brain MRI images with AI-powered technology.</p>
+        </div>
+        <div class="user-avatar">{{ user_name[0]|upper }}</div>
+    </section>
+
+    <section class="dashboard-stats">
+        <div class="dashboard-card">
+            <div class="dashboard-icon">📊</div>
+            <h3>Total Predictions</h3>
+            <h2>{{ total_predictions }}</h2>
+            <p>Your prediction statistics</p>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-icon">🧠</div>
+            <h3>AI Model</h3>
+            <h2>DenseNet121</h2>
+            <p>Classifier: SVM</p>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-icon">✓</div>
+            <h3>System Status</h3>
+            <h2 class="status-ready">Ready</h2>
+            <p>System interface available</p>
+        </div>
+    </section>
+
+    <section class="dashboard-section">
+        <h2>Quick Actions</h2>
+        <p class="section-description">Choose an option to continue.</p>
+
+        <div class="quick-actions">
+            <a href="/upload" class="action-card">
+                <span class="action-icon">📤</span>
+                <h3>Upload MRI</h3>
+                <p>Upload a brain MRI image for analysis.</p>
+                <span class="action-link">Get Started →</span>
+            </a>
+
+            <a href="/history" class="action-card">
+                <span class="action-icon">📋</span>
+                <h3>Prediction History</h3>
+                <p>View your previous prediction records.</p>
+                <span class="action-link">View History →</span>
+            </a>
+
+            <a href="/login" class="action-card">
+                <span class="action-icon">👤</span>
+                <h3>Account</h3>
+                <p>Login or return to the account page.</p>
+                <span class="action-link">Account Page →</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="dashboard-notice">
+        <h3>Research Disclaimer</h3>
+        <p>
+            NeuroScan AI is an academic research demonstration.
+            It is not intended for medical diagnosis or clinical use.
+        </p>
+    </section>
+
+<p><a href="{{ url_for('gradcam_demo') }}">View Grad-CAM Demo</a></p>
+</main>
+
+<footer class="dashboard-footer">
+    © 2026 NeuroScan AI | Academic Research Project
+</footer>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

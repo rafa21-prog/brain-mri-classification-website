@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Private user data
+database/
+uploads/
+prediction_history/
+logs/
+backups/
+gradcam/
+
+# Runtime files
+*.log
+*.sqlite
+*.sqlite3
+*.db
+.DS_Store

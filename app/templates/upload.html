@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload MRI | NeuroScan AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">NeuroScan <span>AI</span></div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/login">Logout</a>
+    </div>
+</nav>
+
+<main class="upload-container">
+
+    <section class="upload-heading">
+        <p class="upload-label">AI-POWERED MRI ANALYSIS</p>
+        <h1>Upload Brain MRI Image</h1>
+        <p>Select a brain MRI image to prepare it for analysis.</p>
+    </section>
+
+    <section class="upload-panel">
+
+        <div class="upload-icon">🧠</div>
+
+        <h2>Select MRI Image</h2>
+        <p class="upload-description">
+            Choose an image from your computer.
+        </p>
+
+        <form id="mriUploadForm" method="POST" action="/upload" enctype="multipart/form-data" data-backend="true">
+            <label for="mriFile" class="file-select-button">
+                Choose MRI Image
+            </label>
+
+            <input
+                type="file"
+                id="mriFile"
+                name="mriFile"
+                accept=".jpg,.jpeg,.png"
+                required
+                hidden
+            >
+
+            <p class="file-information">
+                Supported formats: JPG, JPEG, PNG
+            </p>
+
+            <div id="previewContainer" class="preview-container">
+                <img id="imagePreview" src="" alt="MRI Image Preview">
+            </div>
+
+            <p id="fileName" class="file-name"></p>
+
+            <button type="submit" class="upload-submit-button">
+                Upload Image
+            </button>
+
+            <p id="uploadMessage" class="upload-message">{{ upload_message or "" }}</p>
+        </form>
+
+    </section>
+
+    <section class="upload-guidelines">
+        <h3>Before Uploading</h3>
+        <ul>
+            <li>Select a clear brain MRI image.</li>
+            <li>Use JPG, JPEG, or PNG image formats.</li>
+            <li>Make sure the image is readable.</li>
+        </ul>
+    </section>
+
+    <section class="upload-disclaimer">
+        <strong>Research Disclaimer</strong>
+        <p>
+            This website is an academic research demonstration.
+            It is not intended for medical diagnosis or clinical use.
+        </p>
+    </section>
+
+    <div class="back-dashboard">
+        <a href="/dashboard">← Back to Dashboard</a>
+    </div>
+
+</main>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

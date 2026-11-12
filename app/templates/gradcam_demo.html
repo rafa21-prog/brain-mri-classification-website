@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grad-CAM Demonstration | NeuroScan AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h1>Grad-CAM Demonstration</h1>
+
+        <p>
+            This is a previously generated Grad-CAM visualization.
+            It is shown for demonstration only and is not linked to
+            the MRI currently uploaded by a user.
+        </p>
+
+        <img
+            src="{{ url_for('static', filename='images/svm_gradcam.png') }}"
+            alt="Previously generated Grad-CAM demonstration"
+            style="max-width:100%;height:auto;border-radius:12px;"
+        >
+
+        <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | NeuroScan AI</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-body">
+
+<div class="auth-wrapper">
+    <div class="auth-left">
+        <a href="/" class="brand auth-brand">
+            <span class="brand-icon">✚</span>
+            NeuroScan <span class="brand-blue">AI</span>
+        </a>
+
+        <div class="auth-message">
+            <div class="auth-symbol">🧠</div>
+            <h1>Welcome Back!</h1>
+            <p>Continue exploring our AI-powered brain MRI classification research system.</p>
+        </div>
+        <div class="auth-left-footer">Brain MRI Classification Research Project</div>
+    </div>
+
+    <div class="auth-right">
+        <div class="auth-form-container">
+            <a href="/" class="back-home">← Back to Home</a>
+            <span class="section-tag">ACCOUNT ACCESS</span>
+            <h2>Sign In to Your Account</h2>
+            <p class="auth-subtitle">Enter your mobile number and password.</p>
+
+            <form id="loginForm" method="POST" action="/login">
+                <label>Mobile Number</label>
+                <input type="tel" id="loginMobile" name="mobile" placeholder="Enter your mobile number"
+                       autocomplete="tel" required>
+
+                <label>Password</label>
+                <div class="password-field">
+                    <input type="password" id="loginPassword" name="password"
+                           placeholder="Enter your password"
+                           autocomplete="current-password" required>
+                    <button type="button" class="toggle-password"
+                            data-target="loginPassword">Show</button>
+                </div>
+
+                <button type="submit" class="auth-submit">Sign In →</button>
+                <p id="loginMessage" class="form-message">{{ auth_message or "" }}</p>
+            </form>
+
+            <div class="auth-switch">
+                Don't have an account?
+                <a href="/register">Create Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

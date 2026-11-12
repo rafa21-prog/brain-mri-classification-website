@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result | NeuroScan AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">🧠 NeuroScan AI</a>
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/upload">Upload MRI</a>
+            <a href="/history">History</a>
+        </div>
+    </div>
+</nav>
+
+<main class="result-container">
+
+    <div class="result-heading">
+        <span class="result-label">MRI ANALYSIS REPORT</span>
+        <h1>Prediction Result</h1>
+        <p>Your MRI image analysis result is displayed below.</p>
+    </div>
+
+    <section class="result-main-card">
+
+        <div class="result-image-section">
+            <h3>Uploaded MRI Image</h3>
+            {% if image_url %}
+                <img src="{{ image_url }}" alt="Uploaded MRI" class="result-mri-image">
+            {% else %}
+                <div class="result-image-placeholder">MRI Image Preview</div>
+            {% endif %}
+        </div>
+
+        <div class="result-details">
+            <span class="result-status">ANALYSIS COMPLETED</span>
+            <h2>Predicted Class</h2>
+
+            <div class="prediction-class">
+                {{ prediction if prediction else "Awaiting Prediction" }}
+            </div>
+
+            <p class="result-confidence">
+                Confidence:
+                <strong>{{ confidence if confidence is defined else "--" }}{% if confidence is defined and confidence != "--" %}%{% endif %}</strong>
+            </p>
+
+            <div class="model-information">
+                <span>AI Model</span>
+                <strong>DenseNet121 + SVM</strong>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="result-gradcam-card">
+        <h2>Explainable AI – Occlusion Sensitivity</h2>
+        <p>
+            This visualization highlights image regions where occlusion
+            most reduced the predicted class probability.
+        </p>
+
+        {% if gradcam_url %}
+            <img
+                src="{{ gradcam_url }}"
+                alt="Occlusion Sensitivity XAI heatmap"
+                class="result-gradcam-image"
+                style="max-width:100%; height:auto; border-radius:12px;"
+            >
+        {% else %}
+            <div class="gradcam-placeholder">
+                XAI visualization could not be generated for this MRI.
+            </div>
+        {% endif %}
+    </section>
+
+
+    <div class="result-actions">
+        <a href="/dashboard" class="result-btn secondary-btn">Back to Dashboard</a>
+        <a href="/upload" class="result-btn primary-btn">Upload Another MRI</a>
+    </div>
+
+    <p class="result-disclaimer">
+        Academic research demonstration only. This system is not intended
+        for medical diagnosis or clinical decision-making.
+    </p>
+    
+</main>
+
+<footer class="dashboard-footer">
+    © 2026 NeuroScan AI | Academic Research Project
+</footer>
+
+</body>
+</html>

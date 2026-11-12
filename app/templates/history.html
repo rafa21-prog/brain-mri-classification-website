@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History | NeuroScan AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">🧠 NeuroScan AI</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/upload">Upload MRI</a>
+            <a href="/history" class="active">History</a>
+            <a href="/login">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<main class="history-container">
+
+    <section class="history-heading">
+        <div>
+            <p class="dashboard-label">YOUR RECORDS</p>
+            <h1>Prediction History</h1>
+            <p>View and manage your previous MRI analysis records.</p>
+        </div>
+        <a href="/upload" class="history-upload-btn">+ New Analysis</a>
+    </section>
+
+    <section class="history-summary">
+        <div class="history-summary-card">
+            <span>Total Predictions</span>
+            <strong>{{ history_records|length }}</strong>
+        </div>
+        <div class="history-summary-card">
+            <span>Last Analysis</span>
+            <strong>
+                {{ history_records[0]["created_at"] if history_records else "--" }}
+            </strong>
+        </div>
+        <div class="history-summary-card">
+            <span>AI Model</span>
+            <strong>DenseNet121 + SVM</strong>
+        </div>
+    </section>
+
+    <section class="history-table-card">
+        <div class="history-table-heading">
+            <div>
+                <h2>Recent Analysis</h2>
+                <p>Your MRI prediction records will appear here.</p>
+            </div>
+        </div>
+
+        {% if not history_records %}
+        <div class="history-empty">
+            <div class="history-empty-icon">📋</div>
+            <h3>No Prediction History Yet</h3>
+            <p>You have not analyzed any MRI images yet.
+               Upload an MRI image to start your first analysis.</p>
+            <a href="/upload" class="history-upload-btn">Upload MRI Image</a>
+        </div>
+        {% endif %}
+    </section>
+
+    <p class="history-disclaimer">
+        Academic research demonstration only. Not intended for medical diagnosis.
+    </p>
+
+
+<section id="dynamicPredictionHistory" style="max-width:1100px;margin:35px auto;padding:20px;">
+    <h2>Previous MRI Predictions</h2>
+
+    {% if history_records %}
+    <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;text-align:left;">
+            <thead>
+                <tr>
+                    <th style="padding:12px;border-bottom:1px solid #ccc;">MRI File</th>
+                    <th style="padding:12px;border-bottom:1px solid #ccc;">Prediction</th>
+                    <th style="padding:12px;border-bottom:1px solid #ccc;">Confidence</th>
+                    <th style="padding:12px;border-bottom:1px solid #ccc;">Date</th>
+                    <th style="padding:12px;border-bottom:1px solid #ccc;">MRI Image</th>
+                    <th style="padding:12px;border-bottom:1px solid #ccc;">XAI Heatmap</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in history_records %}
+                <tr>
+                    <td style="padding:12px;border-bottom:1px solid #ddd;">{{ record["filename"] }}</td>
+                    <td style="padding:12px;border-bottom:1px solid #ddd;">{{ record["prediction"] }}</td>
+                    <td style="padding:12px;border-bottom:1px solid #ddd;">{{ "%.2f"|format(record["confidence"]) }}%</td>
+                    <td style="padding:12px;border-bottom:1px solid #ddd;">{{ record["created_at"] }}</td>
+                    <td style="padding:12px;border-bottom:1px solid #ddd;">
+                        <a href="{{ url_for('uploaded_file', filename=record['image_path']) }}" target="_blank">View MRI</a>
+                    </td>
+                    <td style="padding:12px;border-bottom:1px solid #ddd;">
+                        {% if record["gradcam_path"] %}
+                            <a href="{{ url_for('uploaded_file', filename=record['gradcam_path']) }}" target="_blank">
+                                View XAI Heatmap
+                            </a>
+                        {% else %}
+                            <span>Not available</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No prediction history available yet. Upload an MRI image to get started.</p>
+    {% endif %}
+</section>
+
+</main>
+
+<footer class="dashboard-footer">
+    <p>© 2026 NeuroScan AI | Academic Research Project</p>
+</footer>
+
+</body>
+</html>
