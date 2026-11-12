@@ -58,15 +58,18 @@ if (registerForm) {
     });
 }
 
-// Login UI placeholder
+// Login form - allow real Flask backend submission
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
     loginForm.addEventListener("submit", event => {
-        event.preventDefault();
+        const message = document.getElementById("loginMessage");
 
-        document.getElementById("loginMessage").textContent =
-            "Login functionality will be enabled in the next step.";
+        if (message) {
+            message.textContent = "Signing in...";
+        }
+
+        // Allow normal POST submission to Flask /login
     });
 }
 
