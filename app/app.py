@@ -56,6 +56,7 @@ def get_db():
     return connection
 
 
+
 def initialize_database():
     with get_db() as connection:
         connection.execute("""
@@ -65,6 +66,19 @@ def initialize_database():
                 mobile TEXT NOT NULL UNIQUE,
                 password_hash TEXT NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
+        connection.execute("""
+            CREATE TABLE IF NOT EXISTS prediction_history (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                filename TEXT NOT NULL,
+                prediction TEXT NOT NULL,
+                confidence REAL NOT NULL,
+                image_path TEXT,
+                gradcam_path TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                user_id INTEGER
             )
         """)
 
