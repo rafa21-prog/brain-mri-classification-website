@@ -460,20 +460,9 @@ def upload():
         # Run the original trained DenseNet121 + SVM model
         prediction, confidence = predict_mri(original_path)
 
-        # Generate a per-upload Occlusion Sensitivity explanation
-        xai_name = f"{original_stem}_{unique_id}_occlusion.png"
-        xai_path = UPLOAD_DIR / xai_name
+        # Temporarily skip XAI to test prediction speed
         xai_url = None
         saved_xai_name = None
-
-        try:
-            generate_occlusion_map(
-                original_path, prediction, xai_path
-            )
-            xai_url = url_for("uploaded_file", filename=xai_name)
-            saved_xai_name = xai_name
-        except Exception as xai_error:
-            print("XAI generation failed:", repr(xai_error))
 
         connection = sqlite3.connect(DB_FILE)
         connection.execute(
@@ -496,7 +485,7 @@ def upload():
             confidence=f"{confidence:.2f}%",
             image_url=url_for("uploaded_file", filename=gray_name),
             gradcam_url=xai_url,
-            xai_label="Occlusion Sensitivity (XAI)"
+            xai_label="XAI temporarily disabled for testing"
         )
 
     except Exception as error:
