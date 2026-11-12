@@ -32,29 +32,29 @@ document.querySelectorAll(".toggle-password").forEach(button => {
     });
 });
 
-// Registration UI validation only
+// Registration form validation with real Flask submission
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
     registerForm.addEventListener("submit", event => {
-        event.preventDefault();
-
         const password = document.getElementById("registerPassword").value;
         const confirm = document.getElementById("confirmPassword").value;
         const message = document.getElementById("registerMessage");
 
         if (password.length < 8) {
+            event.preventDefault();
             message.textContent = "Password must contain at least 8 characters.";
             return;
         }
 
         if (password !== confirm) {
+            event.preventDefault();
             message.textContent = "Passwords do not match.";
             return;
         }
 
-        message.textContent =
-            "UI validation successful. Account registration will be enabled in the next step.";
+        // Allow normal POST submission to Flask /register
+        message.textContent = "Creating your account...";
     });
 }
 
